@@ -7,7 +7,14 @@
   </head>
   <body>
     <div class="items">
-      <div class="item item1">01</div>
+      <div
+        class="item item1"
+        id="drag1"
+        draggable="true"
+        ondragstart="drag(event)"
+      >
+        01
+      </div>
       <div class="item item2">02</div>
       <div class="item item3">03</div>
       <div class="item item4">04</div>
@@ -33,7 +40,7 @@
       <div class="item item24">24</div>
       <div class="item item25">25</div>
     </div>
-
+    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     <script>
       const slider = document.querySelector(".items");
       let isDown = false;
@@ -60,6 +67,26 @@
         const walk = x - startX;
         slider.scrollLeft = scrollLeft - walk;
       });
+      const allItems = document.querySelectorAll(".item");
+      const addData = allItems.forEach((item, i) => {
+        const dragId = "drag" + i;
+        item.setAttribute("id", `${dragId}`);
+        item.setAttribute("draggable", "true");
+        item.setAttribute("ondragstart", "drag(event)");
+      });
+      function allowDrop(e) {
+        e.preventDefault();
+      }
+
+      function drag(e) {
+        e.dataTransfer.setData("text", e.target.id);
+      }
+
+      function drop(e) {
+        e.preventDefault();
+        var data = e.dataTransfer.getData("text");
+        e.target.appendChild(document.getElementById(data));
+      }
     </script>
   </body>
 </html>
