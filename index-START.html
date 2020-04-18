@@ -6,15 +6,9 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <h1>Cards Game</h1>
     <div class="items">
-      <div
-        class="item item1"
-        id="drag1"
-        draggable="true"
-        ondragstart="drag(event)"
-      >
-        01
-      </div>
+      <div class="item item1">01</div>
       <div class="item item2">02</div>
       <div class="item item3">03</div>
       <div class="item item4">04</div>
@@ -40,7 +34,15 @@
       <div class="item item24">24</div>
       <div class="item item25">25</div>
     </div>
-    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="selected">
+      <h3>Selected cards</h3>
+      <div
+        id="drop-section"
+        ondrop="drop(event)"
+        ondragover="allowDrop(event)"
+      ></div>
+    </div>
+
     <script>
       const slider = document.querySelector(".items");
       let isDown = false;
@@ -67,6 +69,8 @@
         const walk = x - startX;
         slider.scrollLeft = scrollLeft - walk;
       });
+
+      // Add attributes for each item
       const allItems = document.querySelectorAll(".item");
       const addData = allItems.forEach((item, i) => {
         const dragId = "drag" + i;
@@ -74,6 +78,8 @@
         item.setAttribute("draggable", "true");
         item.setAttribute("ondragstart", "drag(event)");
       });
+
+      // Drag and Drop functions
       function allowDrop(e) {
         e.preventDefault();
       }
